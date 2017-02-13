@@ -1,0 +1,49 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="my-view4">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 10px;
+      }
+     .card{
+       max-width: 600px;
+       margin-left: auto;
+       margin-right: auto;
+       padding: 2px;
+     }
+    </style>
+    <firebase-document app-name="Prueba" path="/objeto" data="{{misdatos}}"></firebase-document>
+    <firebase-query id="query" app-name="Prueba" path="/alumnos" data="{{data}}">
+    </firebase-query>
+    <template is="dom-repeat" items="{{data}}">
+      <div class="card">
+        <div class="circle">{{displayIndex(index)}}</div>
+        <h1>Alumno</h1>
+        <paper-input name="nombre" label="Nombre" value="{{item.nombre}}"></paper-input>
+        <paper-input name="primerApellido" label="Primer Apellido" value="{{item.primerApellido}}"></paper-input>
+        <paper-input name="segundoApellido" label="Segundo Apellido" value="{{item.segundoApellido}}"></paper-input>
+      </div>
+    </template>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-view4',
+      properties: {
+        uid: String,
+        data: {
+          type: Object,
+          observer: 'dataChanged'
+        }
+      },
+      displayIndex: function(index) {
+                return index + 1;
+            }
+    });
+  </script>
+</dom-module>
