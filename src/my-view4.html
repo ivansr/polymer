@@ -1,6 +1,3 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/paper-item/paper-item.html">
-<link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-view4">
@@ -16,6 +13,11 @@
        margin-right: auto;
        padding: 2px;
      }
+     #botonMas{
+      position: fixed;
+      left: 90%;
+      top: 90%;
+     }
     </style>
     <!--Obtener datos de Firebase--> 
     <firebase-query id="query" app-name="Prueba" path="/alumnos" data="{{data}}">
@@ -30,6 +32,12 @@
         <paper-input name="curso" label="Curso" value="{{item.curso}}"></paper-input>
       </div>
     </template>
+    <paper-fab icon="add" id="botonMas" onclick="dialog.open()"></paper-fab>
+    <paper-dialog id="dialog">
+      <h2>Dialog Title</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </paper-dialog>
   </template>
 
   <script>
@@ -37,10 +45,10 @@
       is: 'my-view4',
       properties: {
         uid: String,
-        data: {
-          type: Object,
-          observer: 'dataChanged'
-        }
+       // data: {
+        //  type: Object,
+        //  observer: 'dataChanged'
+        //}
       },
       displayIndex: function(index) {
                 return index + 1;
