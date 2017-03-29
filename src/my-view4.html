@@ -1,4 +1,5 @@
 <link rel="import" href="shared-styles.html">
+<link rel="import" href="dialogo-prueba.html">
 
 <dom-module id="my-view4">
   <template>
@@ -26,17 +27,30 @@
       <div class="card">
         <div class="circle">{{displayIndex(index)}}</div>
         <h1>Alumno</h1>
+        <paper-input name="nombre" label="Nombre" value="{{item.$id}}"></paper-input>
         <paper-input name="nombre" label="Nombre" value="{{item.nombre}}"></paper-input>
         <paper-input name="primerApellido" label="Primer Apellido" value="{{item.primerApellido}}"></paper-input>
         <paper-input name="segundoApellido" label="Segundo Apellido" value="{{item.segundoApellido}}"></paper-input>
         <paper-input name="curso" label="Curso" value="{{item.curso}}"></paper-input>
       </div>
     </template>
-    <paper-fab icon="add" id="botonMas" onclick="dialog.open()"></paper-fab>
-    <paper-dialog id="dialog">
+    <paper-fab icon="add" id="botonMas" onclick="dialogo.open()"></paper-fab>
+    <dialogo-prueba nombre="dialog">kfñlkasñlfkañslkfñaskf</dialogo-prueba>
+    <paper-dialog id="dialogo">
+      <firebase-document
+      path="/alumnos/[[uid]]"
+      app-name="Prueba"
+      data="{{noteData}}">  
+    </firebase-document>
       <h2>Dialog Title</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <div class="card">
+        <div class="circle">{{displayIndex(index)}}</div>
+        <h1>Alumno</h1>
+        <paper-input name="nombre" label="Nombre" bind-value="{{noteData.nombre}}"></paper-input>
+        <paper-input name="primerApellido" label="Primer Apellido" bind-value="{{noteData.primerApellido}}"></paper-input>
+        <paper-input name="segundoApellido" label="Segundo Apellido" bind-value="{{noteData.segundoApellido}}"></paper-input>
+        <paper-input name="curso" label="Curso" bind-value="{{noteData.curso}}"></paper-input>
+      </div>
     </paper-dialog>
   </template>
 

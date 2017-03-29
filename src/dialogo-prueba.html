@@ -1,0 +1,19 @@
+<dom-module id="dialogo-prueba">
+<template>
+<paper-dialog id="{{nombre}}">
+      <h2>Modal</h2>
+      <p>Este es un modal.</p>
+</paper-dialog>
+</template>
+</dom-module>
+ <script>
+    Polymer({
+      is: 'dialogo-prueba',
+      properties: {
+        nombre: {
+        type: String,
+        value: ''
+        },
+      }
+    });
+  </script>
