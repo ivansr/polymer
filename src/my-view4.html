@@ -34,11 +34,11 @@
         <paper-input name="curso" label="Curso" value="{{item.curso}}"></paper-input>
       </div>
     </template>
-    <paper-fab icon="add" id="botonMas" onclick="dialogo.open()"></paper-fab>
+    <paper-fab icon="add" id="botonMas" on-tap="openDialogo"></paper-fab>
     <dialogo-prueba nombre="dialog">kfñlkasñlfkañslkfñaskf</dialogo-prueba>
     <paper-dialog id="dialogo">
       <firebase-document
-      path="/alumnos/[[uid]]"
+      id="alumnos"
       app-name="Prueba"
       data="{{noteData}}">  
     </firebase-document>
@@ -46,10 +46,13 @@
       <div class="card">
         <div class="circle">{{displayIndex(index)}}</div>
         <h1>Alumno</h1>
-        <paper-input name="nombre" label="Nombre" bind-value="{{noteData.nombre}}"></paper-input>
-        <paper-input name="primerApellido" label="Primer Apellido" bind-value="{{noteData.primerApellido}}"></paper-input>
-        <paper-input name="segundoApellido" label="Segundo Apellido" bind-value="{{noteData.segundoApellido}}"></paper-input>
-        <paper-input name="curso" label="Curso" bind-value="{{noteData.curso}}"></paper-input>
+        <form is="iron-form" id="form" method="post" action="">
+          <paper-input id="nombre" name="nombre" label="Nombre" bind-value="{{noteData.nombre}}"></paper-input>
+          <paper-input id="primerApellido" name="primerApellido" label="Primer Apellido" bind-value="{{noteData.primerApellido}}"></paper-input>
+          <paper-input id= "segundoApellido" name="segundoApellido" label="Segundo Apellido" bind-value="{{noteData.segundoApellido}}"></paper-input>
+          <paper-input id= "curso" name="curso" label="Curso" bind-value="{{noteData.curso}}"></paper-input>
+          <paper-button raised on-tap="add">Añadir</paper-button>
+        </form>
       </div>
     </paper-dialog>
   </template>
@@ -59,14 +62,33 @@
       is: 'my-view4',
       properties: {
         uid: String,
-       // data: {
-        //  type: Object,
-        //  observer: 'dataChanged'
-        //}
+       data: {
+        type: Object,
+        observer: 'dataChanged'
+        },
+      },
+      openDialogo: function(){
+        this.$.dialogo.open();
+      },
+      add: function(){
+        this.$.alumnos.path = null;
+        this.$.alumnos.data = {
+          nombre: this.$.nombre.value, 
+          primerApellido: this.$.primerApellido.value,
+          segundoApellido: this.$.segundoApellido.value,
+          curso: this.$.curso.value 
+          }
+        this.$.alumnos.save('/alumnos');
+        this.$.nombre.value = null;
+        this.$.primerApellido.value = null;
+        this.$.segundoApellido.value = null;
+        this.$.curso.value = null;
+        this.$.form.reset();
+        this.$.dialogo.close();
       },
       displayIndex: function(index) {
-                return index + 1;
-            }
-    });
+        return index + 1;
+      }
+    })
   </script>
 </dom-module>
