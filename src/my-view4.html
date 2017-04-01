@@ -27,25 +27,24 @@
       <div class="card">
         <div class="circle">{{displayIndex(index)}}</div>
         <h1>Alumno</h1>
-        <paper-input name="nombre" label="Nombre" value="{{item.$id}}"></paper-input>
         <paper-input name="nombre" label="Nombre" value="{{item.nombre}}"></paper-input>
         <paper-input name="primerApellido" label="Primer Apellido" value="{{item.primerApellido}}"></paper-input>
         <paper-input name="segundoApellido" label="Segundo Apellido" value="{{item.segundoApellido}}"></paper-input>
         <paper-input name="curso" label="Curso" value="{{item.curso}}"></paper-input>
+        <center><paper-button raised on-tap="delete">Borrar</paper-button></center>
       </div>
     </template>
     <paper-fab icon="add" id="botonMas" on-tap="openDialogo"></paper-fab>
-    <dialogo-prueba nombre="dialog">kfñlkasñlfkañslkfñaskf</dialogo-prueba>
+    <dialogo-prueba nombre="dialog"></dialogo-prueba>
     <paper-dialog id="dialogo">
       <firebase-document
       id="alumnos"
       app-name="Prueba"
       data="{{noteData}}">  
     </firebase-document>
-      <h2>Dialog Title</h2>
+      <h2>Añadir nuevo alumno</h2>
       <div class="card">
-        <div class="circle">{{displayIndex(index)}}</div>
-        <h1>Alumno</h1>
+        <p>Datos del Alumno</p>
         <form is="iron-form" id="form" method="post" action="">
           <paper-input id="nombre" name="nombre" label="Nombre" bind-value="{{noteData.nombre}}"></paper-input>
           <paper-input id="primerApellido" name="primerApellido" label="Primer Apellido" bind-value="{{noteData.primerApellido}}"></paper-input>
@@ -85,6 +84,11 @@
         this.$.curso.value = null;
         this.$.form.reset();
         this.$.dialogo.close();
+      },
+      delete: function(e){
+        var key = e.model.get('item.$key');
+        this.$.alumnos.path = '/alumnos/'+key;
+        this.$.alumnos.destroy();
       },
       displayIndex: function(index) {
         return index + 1;
