@@ -24,18 +24,19 @@
     <firebase-query id="query" app-name="Prueba" path="/alumnos" data="{{data}}">
     </firebase-query>
     <template is="dom-repeat" items="{{data}}">
-      <div class="card">
+      <div class="card" id="card[[item.$key]]">
         <div class="circle">{{displayIndex(index)}}</div>
         <h1>Alumno</h1>
-        <paper-input name="nombre" label="Nombre" value="{{item.$id}}"></paper-input>
+        <p>[[item.$key]]</p>
         <paper-input name="nombre" label="Nombre" value="{{item.nombre}}"></paper-input>
         <paper-input name="primerApellido" label="Primer Apellido" value="{{item.primerApellido}}"></paper-input>
         <paper-input name="segundoApellido" label="Segundo Apellido" value="{{item.segundoApellido}}"></paper-input>
         <paper-input name="curso" label="Curso" value="{{item.curso}}"></paper-input>
+        <paper-button raised on-tap="delete">Eliminar</paper-button>
       </div>
     </template>
     <paper-fab icon="add" id="botonMas" on-tap="openDialogo"></paper-fab>
-    <dialogo-prueba nombre="dialog">kfñlkasñlfkañslkfñaskf</dialogo-prueba>
+    <dialogo-prueba nombre="dialog"></dialogo-prueba>
     <paper-dialog id="dialogo">
       <firebase-document
       id="alumnos"
@@ -62,6 +63,7 @@
       is: 'my-view4',
       properties: {
         uid: String,
+        key: String,
        data: {
         type: Object,
         observer: 'dataChanged'
@@ -85,6 +87,9 @@
         this.$.curso.value = null;
         this.$.form.reset();
         this.$.dialogo.close();
+      },
+      delete: function(key){
+       this.$.query.destroy();
       },
       displayIndex: function(index) {
         return index + 1;
