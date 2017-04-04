@@ -1,10 +1,12 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="shared-styles.html">
-<link rel="import" href="my-app.html">
 
 <dom-module id="my-detallesAlumno">
-
   <template>
+      <app-route
+        route="[[route]]"
+        pattern="/:key"
+        data="{{routeData}}"></app-route>
     <p>
     This is a <strong>{{alumnoKey}}</strong>'s editable-name-tag.
     </p>
@@ -18,10 +20,12 @@
         alumnoKey: {
           type: String,
           value: "Daniel"
-        }
+        },
+        routeData: Object,
+        route: Object,
       },
       ready: function(){
-          this.alumnoKey = this.route.tail;
+          this.alumnoKey = routeData.key;
       }
     });
   </script>

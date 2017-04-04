@@ -27,7 +27,6 @@
     <!--Obtener datos de Firebase--> 
     <firebase-query id="query" app-name="Prueba" path="/alumnos" data="{{alumnos}}">
     </firebase-query>
-
     <template is="dom-repeat" items="{{alumnos}}" as= "alumno">
       <div class="card">
         <div class="circle">{{displayIndex(index)}}</div>
