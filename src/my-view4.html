@@ -14,6 +14,10 @@
        margin-right: auto;
        padding: 2px;
      }
+     .linkButton{
+       text-decoration: none;
+       color: #555;
+     }
      #botonMas{
       position: fixed;
       left: 90%;
@@ -32,7 +36,8 @@
         <paper-input name="primerApellido" label="Primer Apellido" value="{{alumno.primerApellido}}"></paper-input>
         <paper-input name="segundoApellido" label="Segundo Apellido" value="{{alumno.segundoApellido}}"></paper-input>
         <paper-input name="curso" label="Curso" value="{{alumno.curso}}"></paper-input>
-        <center><paper-button raised on-tap="delete">Borrar</paper-button></center>
+        <a href="/detallesAlumno/{{alumno.$key}}" class="linkButton"><paper-button raised>Detalles</paper-button></a>
+        <paper-button raised on-tap="delete">Borrar</paper-button>
       </div>
     </template>
     <paper-fab icon="add" id="botonMas" on-tap="openDialogo"></paper-fab>
